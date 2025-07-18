@@ -19,4 +19,26 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!-- 配置依赖 -->
+    <dependencies>
+        <dependency>
+            <!-- 组织名称 -->
+            <groupId>org.springframework</groupId>
+            <!-- 包名 -->
+            <artifactId>spring-context</artifactId>
+            <!-- 版本 -->
+            <version>6.2.7</version>
+
+            <!-- 指定排除依赖, 排除了之后上面的包就会将这个依赖从依赖树中移除 -->
+            <exclusions>
+                <exclusion>
+                    <!-- 排除的依赖的组织 -->
+                    <groupId>io.micrometer</groupId>
+                    <!-- 排除的依赖的包名 -->
+                    <artifactId>micrometer-observation</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
 </project>
