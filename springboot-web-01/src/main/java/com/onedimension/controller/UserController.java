@@ -1,25 +1,23 @@
 package com.onedimension.controller;
 
-import cn.hutool.core.io.IoUtil;
 import com.onedimension.pojo.User;
+import com.onedimension.service.UserService;
+import com.onedimension.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
+ * controller层: 控制层 主要用于处理用户请求和相应数据
  * 用户信息controller
  */
 @RestController
 public class UserController {
 
-    @RequestMapping("/list")
+    /* @RequestMapping("/list")
     public List<User> list() throws FileNotFoundException {
         // 1. 加载读取用户信息文件
         // 使用工具进行文件读取到集合中
@@ -28,7 +26,6 @@ public class UserController {
         // 所以这里可以通过类的加载器来获取resource目录下的文件输入流
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("user.txt");
         ArrayList<String> lines = IoUtil.readLines(in, StandardCharsets.UTF_8, new ArrayList<>());
-        System.out.println("strings" + lines);
 
         // 2. 解析每行的用户信息 存放到用户信息集合中
         List<User> userList = lines.stream().map(line -> {
@@ -47,5 +44,20 @@ public class UserController {
         // RestController注解中有个responseBody的注解能将controller返回值作为响应体直接响应
         // 如果返回值是集合、对象, 那么会自动将其转为json再响应
         return userList;
+    }*/
+
+    @Autowired
+    private UserService userService ;
+
+    @RequestMapping("/list")
+    public List<User> list() throws FileNotFoundException {
+        // 调用service 获取数据
+        List<User> userList = userService.list();
+
+        // 3. 返回 返回时会自动将list的元素转为json
+        // RestController注解中有个responseBody的注解能将controller返回值作为响应体直接响应
+        // 如果返回值是集合、对象, 那么会自动将其转为json再响应
+        return userList;
     }
+
 }
