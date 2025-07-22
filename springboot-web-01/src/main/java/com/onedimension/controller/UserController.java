@@ -4,6 +4,7 @@ import com.onedimension.pojo.User;
 import com.onedimension.service.UserService;
 import com.onedimension.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +47,12 @@ public class UserController {
         return userList;
     }*/
 
+    /**
+     * 如果一个存在多个UserService的实现类, 启动时会报错, 因为spring无法知道应该注入哪个实现类
+     * 解决方式一: 在实现类上加@Primary注解, 指定默认情况下注入的bean
+     * 解决方式二: 在Autowired上加@Qualifier("userServiceImpl")注解指定bean的名称
+     * 方式三: 在使用的地方加上@Resource(name = "userServiceImpl") 注解指定bean的名称
+     */
     @Autowired
     private UserService userService ;
 
