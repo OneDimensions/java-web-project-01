@@ -6,6 +6,6 @@
 <mapper namespace="com.onedimension.mapper.UserMapper">
     <!-- id: 方法名 resultType: 查询语句返回记录单条的类型 -->
     <select id="getUserList" resultType="com.onedimension.pojo.User">
-        select id, username, password, name, age from user where username=#{username} and password=#{password}
+        select id, username, password, name, age from user;
     </select>
 </mapper>
